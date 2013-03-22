@@ -1,0 +1,27 @@
+0.04 2013-03-22
+        - Fixed base bug in discovery.
+	- Fixed bug in encoding.
+	- Made example app working in real world.
+	- Don't use constants.
+	- Improve documentation.
+	- Change lease seconds default to 9 days.
+	- Add screenshot of example app.
+	- First CPAN release.
+
+0.03 2013-03-14
+	- Added discovery.
+	- Improved example script.
+	- Changed default lease seconds to 7 days,
+	  as appspot has a maximum of 10 days.
+
+0.02 2013-03-12
+        - Changed 'on_pubsub_acceptance' hook
+	  to 'pubsub_accept' callback.
+        - Changed 'on_pubsub_verification' hook
+	  to 'pubsub_verify' callback.
+	- Added Example script.
+
+0.01 2013-02-05
+  	- Small improvements to documentation.
+        - Separation from Sojolicious package.
+        - Initial submission to GitHub.
