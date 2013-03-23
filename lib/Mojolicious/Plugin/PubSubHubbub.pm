@@ -5,7 +5,7 @@ use Mojo::DOM;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/secure_compare hmac_sha1_sum/;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # Todo:
 # - Make everything async (top priority)
@@ -1314,11 +1314,7 @@ and needs to be accessible from the web.
 
   $ perl examples/pubsubapp daemon
 
-=begin html
-
-<div style="text-align: center;"><img src="http://sojolicio.us/images/pubsubhubbub-screenshot.png" alt="PubSubHubbub Example Application" /></div>
-
-=end html
+=for html <br /><div style="text-align: center;"><img src="http://sojolicio.us/images/pubsubhubbub-screenshot.png" alt="PubSubHubbub Example Application" /></div>
 
 This example may be a good starting point for your own implementation, especially,
 if you deal with the subscriber part.
