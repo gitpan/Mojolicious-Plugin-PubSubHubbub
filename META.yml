@@ -18,11 +18,11 @@ no_index:
     - t
     - inc
 requires:
-  Mojolicious: 3.43
+  Mojolicious: 3.91
   Mojolicious::Plugin::Util::Callback: 0.02
   Mojolicious::Plugin::Util::Endpoint: 0.12
   perl: 5.010001
 resources:
   license: http://www.opensource.org/licenses/artistic-license-2.0
   repository: https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub
-version: 0.05
+version: 0.06

@@ -13,7 +13,7 @@ WriteMakefile(
     'Test::More' => 0
   },
   PREREQ_PM => {
-    'Mojolicious' => 3.43,
+    'Mojolicious' => 3.91,
     'Mojolicious::Plugin::Util::Endpoint' => 0.12,
     'Mojolicious::Plugin::Util::Callback' => 0.02
   },
@@ -26,5 +26,5 @@ WriteMakefile(
     }
   },
   MIN_PERL_VERSION => '5.010001',
-  test => {TESTS => 't/*.t'}
+  test => {TESTS => 't/*.t t/examples/*.t'}
 );

@@ -5,7 +5,7 @@ use Mojo::DOM;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/secure_compare hmac_sha1_sum/;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 # Todo:
 # - Make everything async (top priority)
@@ -26,6 +26,8 @@ my $FEED_ENDING_RE = qr{(?i:\.(r(?:ss|df)|atom))$};
 # User Agent Name
 my $UA_NAME = __PACKAGE__ . ' v' . $VERSION;
 
+# Prototypes
+sub _add_topics;
 
 # Register plugin
 sub register {
@@ -392,7 +394,7 @@ sub _discover_sort_links {
       else {
 	return -1;
       };
-    } values @$alternate);
+    } @$alternate);
   };
 
   # Maybe empty ... maybe not
@@ -1134,7 +1136,7 @@ hub's response message body is returned additionally.
 =head2 pubsub_accept
 
   # Establish callback
-  $mojo->callback(
+  $app->callback(
     pubsub_accept => sub {
       my ($c, $type, $topics) = @_;
 
@@ -1168,7 +1170,7 @@ helper or on registration.
 =head2 pubsub_verify
 
   # Establish callback
-  $mojo->callback(
+  $app->callback(
     pubsub_verify => sub {
       my ($c, $param) = @_;
 
@@ -1196,7 +1198,7 @@ helper or on registration.
 
 =head2 on_pubsub_content
 
-  $mojo->hook(
+  $app->hook(
     on_pubsub_content => sub {
       my ($c, $type, $dom) = @_;
 
@@ -1222,7 +1224,7 @@ of C<source E<gt> link[rel="self"]>.
 
 =head2 before_pubsub_subscribe
 
-  $mojo->hook(
+  $app->hook(
     before_pubsub_subscribe => sub {
       my ($c, $params, $post) = @_;
 
@@ -1242,7 +1244,7 @@ a secret.
 
 =head2 after_pubsub_subscribe
 
-  $mojo->hook(
+  $app->hook(
     after_pubsub_subscribe => sub {
       my ($c, $hub, $params, $status, $body) = @_;
       if ($status !~ /^2/) {
@@ -1263,7 +1265,7 @@ This hook can be used to deal with errors.
 
 =head2 before_pubsub_unsubscribe
 
-  $mojo->hook(
+  $app->hook(
     before_pubsub_unsubscribe => sub {
       my ($c, $params, $post) = @_;
 
@@ -1283,7 +1285,7 @@ This hook can be used to store unsubscription information.
 
 =head2 after_pubsub_unsubscribe
 
-  $mojo->hook(
+  $app->hook(
     after_pubsub_unsubscribe => sub {
       my ($c, $hub, $params, $status, $body) = @_;
       if ($status !~ /^2/) {
@@ -1307,14 +1309,14 @@ This hook can be used to deal with errors.
 The C<examples/> folder contains a full working example application with publishing,
 subscription and discovery logic.
 The example has additional dependencies of L<DBI>, L<DBD::SQLite> and
-L<XML::Loy> (at least v0.10).
+L<XML::Loy> (at least v0.11).
 
 It can be started using the daemon, morbo or hypnotoad,
 and needs to be accessible from the web.
 
   $ perl examples/pubsubapp daemon
 
-=for html <br /><div style="text-align: center;"><img src="http://sojolicio.us/images/pubsubhubbub-screenshot.png" alt="PubSubHubbub Example Application" /></div>
+=for HTML <br /><div style="text-align: center;"><img src="http://sojolicio.us/images/pubsubhubbub-screenshot.png" alt="PubSubHubbub Example Application" /></div>
 
 This example may be a good starting point for your own implementation, especially,
 if you deal with the subscriber part.
