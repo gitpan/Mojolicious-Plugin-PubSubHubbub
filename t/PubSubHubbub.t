@@ -88,8 +88,12 @@ is($dom->find('item')->size, 1, 'Filtered topics in RSS 4');
 
 # find topics in atom
 $dom = $dom->parse($atom);
-$topics = Mojolicious::Plugin::PubSubHubbub::_find_topics('atom',$dom);
-is(@$topics, 2, 'Topics in Atom');
+$topics = Mojolicious::Plugin::PubSubHubbub::_find_topics('atom', $dom);
+is(ref $topics, 'ARRAY', 'Topics in Atom is array');
+ok($topics, 'Topics in Atom exists');
+is($#$topics, 1, 'Topics in Atom last element');
+is(scalar @$topics, 2, 'Topics in Atom - explicit scalar');
+is(@$topics, 2, 'Topics in Atom - implicit scalar');
 ok($topics ~~ ['http://sojolicio.us/2/blog','http://sojolicio.us/blog.atom'],
    'Topics in Atom 2');
 
@@ -161,6 +165,17 @@ $app->callback(
 
     # Second request
     elsif ($request_count == 2) {
+
+      my $info = "on_ps_a ($request_count) - Topics in RSS/Atom/RDF";
+
+      is(ref $topics, 'ARRAY', "$info is array");
+      ok($topics, $info . ' exists');
+      is($#$topics, 1, $info . ' last element');
+      is(scalar @$topics, 2, $info . ' - explicit scalar');
+      is(@$topics, 2, $info . ' - implicit scalar');
+
+
+      is(@$topics, 2, $info);
       is(@$topics, 2, "on_ps_a ($request_count) - Topics in RSS/Atom/RDF");
       ok($topics ~~ ['http://sojolicio.us/2/blog',
 		     'http://sojolicio.us/blog.rss'] ||
