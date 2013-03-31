@@ -39,7 +39,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "license" : [
          "http://www.opensource.org/licenses/artistic-license-2.0"
@@ -48,5 +48,5 @@
          "url" : "https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub"
       }
    },
-   "version" : "0.06_3"
+   "version" : "0.07"
 }
