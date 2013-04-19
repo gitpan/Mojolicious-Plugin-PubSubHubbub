@@ -32,9 +32,9 @@
       },
       "runtime" : {
          "requires" : {
-            "Mojolicious" : "3.91",
+            "Mojolicious" : "3.93",
             "Mojolicious::Plugin::Util::Callback" : "0.02",
-            "Mojolicious::Plugin::Util::Endpoint" : "0.12",
+            "Mojolicious::Plugin::Util::Endpoint" : "0.14",
             "perl" : "5.010001"
          }
       }
@@ -48,5 +48,5 @@
          "url" : "https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub"
       }
    },
-   "version" : "0.07"
+   "version" : "0.08"
 }

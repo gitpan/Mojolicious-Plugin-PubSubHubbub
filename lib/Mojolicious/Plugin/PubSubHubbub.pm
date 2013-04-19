@@ -5,7 +5,7 @@ use Mojo::DOM;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/secure_compare hmac_sha1_sum/;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 # Todo:
 # - Make everything async (top priority)
@@ -151,6 +151,7 @@ sub publish {
     my $msg = 'Cannot ping hub';
     $msg .= ' - maybe no SSL support' if index($plugin->hub, 'https') == 0;
     $c->app->log->warn($msg);
+
     return;
   };
 
@@ -942,7 +943,7 @@ Mojolicious::Plugin::PubSubHubbub - Publish and Subscribe with PubSubHubbub
     hub => 'https://hub.example.org'
   };
 
-  (any '/:user/callback_url')->pubsub;
+  any('/:user/callback_url')->pubsub;
 
   # In Controllers:
   # Publish feeds
@@ -981,6 +982,8 @@ I<not> the hub part.
 
 This plugin is data store agnostic.
 Please use this plugin by applying hooks and callbacks.
+
+B<This module is an early release! There may be significant changes in the future.>
 
 
 =head1 ATTRIBUTES
@@ -1050,7 +1053,7 @@ as part of the configuration file with the key C<PubSubHubbub>.
   $r->route('/callback_url')->pubsub;
 
   # Mojolicious::Lite
-  (any '/callback_url')->pubsub;
+  any('/callback_url')->pubsub;
 
 Define the callback endpoint for your subscriptions.
 Establishes an L<endpoint|Mojolicious::Plugin::Util::Endpoint>
@@ -1337,6 +1340,8 @@ L<Mojolicious::Plugin::Util::Callback>.
 =head1 AVAILABILITY
 
   https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub
+
+This plugin is part of the L<Sojolicious|http://sojolicio.us> project.
 
 
 =head1 COPYRIGHT AND LICENSE
