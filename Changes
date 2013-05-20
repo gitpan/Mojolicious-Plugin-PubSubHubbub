@@ -1,6 +1,8 @@
-0.08 2013-04-19
+0.09 2013-05-20
+        - Fixed for Mojolicious 4.0 compatibility.
+
+0.08 2013-04-09
         - Improved documentation.
-	- Updated dependencies.
 
 0.07 2013-03-31
         - Bug fixes from development versions.
