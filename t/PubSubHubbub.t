@@ -13,7 +13,7 @@ use Test::Mojo;
 use Test::More;
 use Mojolicious::Lite;
 use Mojo::ByteStream ('b');
-use lib '../lib', 'lib';
+use lib '../lib';
 
 our ($rss, $rdf, $atom);
 
@@ -293,7 +293,9 @@ $app->routes->route('/hub')
 
       # First request
       if ($request_count == 1) {
+
 	is ($c->param('hub.mode'), 'subscribe', 'Subscription mode');
+
 	is ($c->param('hub.topic'),
 	    'http://sojolicio.us/blog.xml',
 	    'Topic correct');
@@ -312,6 +314,7 @@ $app->routes->route('/hub')
 
       # Second request
       elsif ($request_count == 2) {
+
 	is ($c->param('hub.mode'), 'subscribe', 'Subscription mode');
 
 	isnt ($c->param('hub.topic'),
@@ -323,6 +326,7 @@ $app->routes->route('/hub')
 
       # Third request
       elsif ($request_count == 3) {
+
 	is ($c->param('hub.mode'), 'unsubscribe', 'Unsubscription mode');
 
 	is ($c->param('hub.topic'),
@@ -349,7 +353,7 @@ $app->routes->route('/hub')
 	      'http://sojolicio.us/blog.xml',
 	      'Topic correct');
 
-	return $c->render( text => 'not_okay', status => 404);
+	return $c->render(text => 'not_okay', status => 404);
 
       }
 
@@ -366,7 +370,7 @@ $app->routes->route('/hub')
 
 	elsif ($request_count == 6) {
 	  if ($test eq '/blog.xml,/comments.xml') {
-	    return $c->render( text => 'okay');
+	    return $c->render(text => 'okay');
 	  };
 	};
       };
