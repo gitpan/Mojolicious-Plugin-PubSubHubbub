@@ -4,9 +4,9 @@
       "Nils Diewald"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921",
+   "generated_by" : "ExtUtils::MakeMaker version 6.82, CPAN::Meta::Converter version 2.141170",
    "license" : [
-      "perl_5"
+      "artistic_2"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -35,6 +35,7 @@
             "Mojolicious" : "4.23",
             "Mojolicious::Plugin::Util::Callback" : "0.02",
             "Mojolicious::Plugin::Util::Endpoint" : "0.14",
+            "Mojolicious::Plugin::Util::RandomString" : "0.04",
             "perl" : "5.010001"
          }
       }
@@ -48,5 +49,5 @@
          "url" : "https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub"
       }
    },
-   "version" : "0.10"
+   "version" : "0.11"
 }
