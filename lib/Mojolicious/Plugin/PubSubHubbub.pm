@@ -5,7 +5,7 @@ use Mojo::DOM;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/secure_compare hmac_sha1_sum/;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 # Todo:
 # - Make everything async (top priority)
@@ -210,13 +210,16 @@ sub verify {
 sub _discover_header_links {
   my $header = shift;
 
+  my $header_hash = $header->to_hash(1);
+
+  my @links = (@{$header_hash->{Link} // []}, @{$header_hash->{link} // []});
   my %links;
 
   # Iterate through all header links
-  foreach ($header->header('link')) {
+  foreach (@links) {
 
     # Make multiline headers one line
-    $_ = join(' ', @$_);
+    $_ = join(' ', @$_) if ref $_;
 
     # Check for link with correct relation
     if ($_ =~ /^\<([^>]+?)\>(.*?rel\s*=\s*"(self|hub|alternate)".*?)$/mi) {
