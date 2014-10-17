@@ -5,7 +5,7 @@ use Mojo::DOM;
 use Mojo::ByteStream 'b';
 use Mojo::Util qw/secure_compare hmac_sha1_sum/;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 # Todo:
 # - Make everything async (top priority)
@@ -32,7 +32,7 @@ sub register {
 
   # Load parameter from Config file
   if (my $config_param = $mojo->config('PubSubHubbub')) {
-    $param = { %$config_param, %$param };
+    $param = { %$param, %$config_param };
   };
 
   my $helpers = $mojo->renderer->helpers;
@@ -144,17 +144,18 @@ sub publish {
     name => $UA_NAME
   );
 
+  my $msg = 'Cannot ping hub';
+  $msg .= ' - maybe no SSL support' if index($plugin->hub, 'https') == 0;
+
+  # Blocking
   # Post to hub
   my $tx = $ua->post( $plugin->hub => form => \%post );
 
-  my $res = $tx->res if $tx->success;
+  my $res = $tx->success;
 
   # No response
-  unless ($tx->success && $res) {
-    my $msg = 'Cannot ping hub';
-    $msg .= ' - maybe no SSL support' if index($plugin->hub, 'https') == 0;
+  unless ($res) {
     $c->app->log->warn($msg);
-
     return;
   };
 
@@ -1036,8 +1037,10 @@ Defaults to 9 days.
 
 Called when registering the plugin.
 Accepts the attributes mentioned as parameters.
-All parameters can be set either on registration or
-as part of the configuration file with the key C<PubSubHubbub>.
+
+All parameters can be set either as part of the configuration
+file with the key C<PubSubHubbub> or on registration
+(that can be overwritten by configuration).
 
 
 =head1 SHORTCUTS
@@ -1070,7 +1073,7 @@ The discovery heuristics may change without notification.
 =head2 pubsub_publish
 
   # In Controllers
-  $c->pubsub_publish(
+  my $success = $c->pubsub_publish(
     'my_feed',                       # named route
     '/feed.atom',                    # relative paths
     'https://sojolicio.us/feed.atom' # absolute URIs
@@ -1078,6 +1081,7 @@ The discovery heuristics may change without notification.
 
 Publish a list of feeds in terms of a notification to the hub.
 Supports endpoints, named routes, relative paths and absolute URIs.
+Returns a true value on success.
 
 
 =head2 pubsub_subscribe
